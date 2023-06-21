@@ -41,22 +41,31 @@ file="../../header.jsp" %>
         username: document.querySelector('input[name="username"]').value,
         password: document.querySelector('input[name="password"]').value,
       };
-      var xhr = new XMLHttpRequest();
-      xhr.open("POST", "/rest/account/login", true);
-      xhr.setRequestHeader("Content-Type", "application/json");
+      fetch("/rest/account/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      })
+        .then((response) => {
+          if (response.status === 200) {
+            alert("Vous êtes connecté !");
+            return response.text();
+          } else if (response.status === 401) {
+            alert("Mauvais identifiants");
+            throw new Error("Mauvais identifiants");
+          } else {
+            throw new Error("Erreur inattendue : " + response.status);
+          }
+        })
+        .then((token) => {
+          sessionStorage.token = token;
 
-      xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-          alert("Vous êtes connecté !");
-
-          sessionStorage.token = xhr.responseText;
-
-          // Decodage du token pour récupérer l'id de l'utilisateur
-          var base64Url = xhr.responseText.split(".")[1];
+          var base64Url = token.split(".")[1];
           var base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
           var jsonPayload = decodeURIComponent(
-            window
-              .atob(base64)
+            atob(base64)
               .split("")
               .map(function (c) {
                 return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
@@ -66,11 +75,9 @@ file="../../header.jsp" %>
           sessionStorage.userId = JSON.parse(jsonPayload).userId;
 
           window.location.href = "/blog";
-        } else if (xhr.readyState === 4 && xhr.status === 401) {
-          alert("Mauvais identifiants");
-        }
-      };
-
-      xhr.send(JSON.stringify(formData));
+        })
+        .catch((error) => {
+          console.error("Erreur :", error);
+        });
     });
 </script>

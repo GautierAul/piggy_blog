@@ -39,18 +39,25 @@ file="../../header.jsp" %>
         username: document.querySelector('input[name="username"]').value,
         password: document.querySelector('input[name="password"]').value,
       };
-      var xhr = new XMLHttpRequest();
-      xhr.open("POST", "/rest/account/create", true);
-      xhr.setRequestHeader("Content-Type", "application/json");
-
-      xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-          window.location.href = "/login";
-        } else if (xhr.readyState === 4 && xhr.status === 409) {
-          alert("Ce nom d'utilisateur est déjà pris !");
-        }
-      };
-
-      xhr.send(JSON.stringify(formData));
+      fetch("/rest/account/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      })
+        .then((response) => {
+          if (response.status === 200) {
+            window.location.href = "/login";
+          } else if (response.status === 409) {
+            alert("Ce nom d'utilisateur est déjà pris !");
+            throw new Error("Mauvais identifiants");
+          } else {
+            throw new Error("Erreur inattendue : " + response.status);
+          }
+        })
+        .catch((error) => {
+          console.error("Erreur :", error);
+        });
     });
 </script>

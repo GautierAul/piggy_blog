@@ -1,7 +1,7 @@
-# @base_url=http://localhost:8080
-@token=eyJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoidGVzdCIsInVzZXJJZCI6IjEiLCJzdWIiOiJ0ZXN0IiwiaWF0IjoxNjg3MzI4MzM4LCJleHAiOjE2ODczMzE5Mzh9.dN9YmM2pMC2yPb6sW7BK2zCii9jjgT5YO4Mdghjwrws
+@base_url=http://localhost:8080
+@token=eyJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoidGVzdCIsInVzZXJJZCI6IjEiLCJzdWIiOiJ0ZXN0IiwiaWF0IjoxNjg3MzMwMDc1LCJleHAiOjE2ODczMzM2NzV9.b7WWRb2jAYu3mkWHB0L00NRwRXvxkrxCvdw5k6WgLmA
 
-@base_url=https://piggy-blog-gautier.alwaysdata.net
+# @base_url=https://piggy-blog-gautier.alwaysdata.net
 
 ###
 POST {{base_url}}/rest/account/login
