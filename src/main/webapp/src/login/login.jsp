@@ -26,7 +26,7 @@ file="../../header.jsp" %>
     <input
       type="submit"
       value="Me connecter"
-      class="border border-white rounded-lg px-2 py-1"
+      class="border border-white rounded-lg px-2 py-1 cursor-pointer"
     />
   </form>
 </div>

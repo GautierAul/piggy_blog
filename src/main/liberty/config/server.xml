@@ -16,6 +16,7 @@
         <feature>servlet-6.0</feature>
         <!-- JPA -->
         <feature>persistence-3.1</feature>
+        <feature>jdbc-4.3</feature>
     </featureManager>
 
     <variable name="env.PORT" defaultValue="8080" />
@@ -61,14 +62,21 @@
     <ssl id="defaultSSLConfig" trustDefaultCerts="true" />
 
     <!-- Derby Library Configuration -->
-    <library id="derbyJDBCLib">
-        <!-- Le jar a été téléchargé et copié dans ce dossier via le plugin maven (voir le pom) -->
+    <!-- <library id="derbyJDBCLib">
         <fileset dir="${shared.resource.dir}/" includes="derby*.jar" />
+    </library> -->
+    <library id="jdbcLib">
+        <file name="${server.config.dir}/mysql-connector-j-8.0.32.jar"/>
     </library>
 
     <!-- Définition du datasource -->
-    <dataSource id="eventjpadatasource" jndiName="jdbc/eventjpadatasource">
+    <!-- <dataSource id="eventjpadatasource" jndiName="jdbc/eventjpadatasource">
         <jdbcDriver libraryRef="derbyJDBCLib" />
         <properties.derby.embedded databaseName="EventDB" createDatabase="create" />
+    </dataSource> -->
+
+    <dataSource id="eventjpadatasource" jndiName="jdbc/eventjpadatasource">
+        <jdbcDriver libraryRef="jdbcLib"/>
+        <properties serverName="mysql-piggy-blog-gautier.alwaysdata.net" portNumber="3306" databaseName="piggy-blog-gautier_db" password="mdp123*" user="317311"/>
     </dataSource>
 </server>

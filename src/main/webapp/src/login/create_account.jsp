@@ -24,7 +24,7 @@ file="../../header.jsp" %>
     <input
       type="submit"
       value="Créer mon compte"
-      class="border border-white rounded-lg px-2 py-1"
+      class="border border-white rounded-lg px-2 py-1 cursor-pointer"
     />
   </form>
 </div>
@@ -39,7 +39,7 @@ file="../../header.jsp" %>
         username: document.querySelector('input[name="username"]').value,
         password: document.querySelector('input[name="password"]').value,
       };
-      fetch("/rest/account/login", {
+      fetch("/rest/account/create", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
