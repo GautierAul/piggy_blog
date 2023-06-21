@@ -1,0 +1,81 @@
+# @base_url=http://localhost:8080
+@token=eyJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoidGVzdCIsInVzZXJJZCI6IjEiLCJzdWIiOiJ0ZXN0IiwiaWF0IjoxNjg3MzI4MzM4LCJleHAiOjE2ODczMzE5Mzh9.dN9YmM2pMC2yPb6sW7BK2zCii9jjgT5YO4Mdghjwrws
+
+@base_url=https://piggy-blog-gautier.alwaysdata.net
+
+###
+POST {{base_url}}/rest/account/login
+Content-Type: application/json
+
+{
+    "username": "test",
+    "password": "test"
+}
+
+###
+POST {{base_url}}/rest/account/create
+Content-Type: application/json
+
+{
+    "username": "ab",
+    "password": "ab"
+}
+###
+GET {{base_url}}/rest/blog
+Authorization: Bearer {{token}}}
+###
+GET {{base_url}}/rest/blog/1
+Authorization: Bearer {{token}}}
+###
+POST {{base_url}}/rest/blog
+Authorization: Bearer {{token}}}
+Content-Type: application/json
+
+{
+    "title": "comment faire des patates",
+    "createdBy": "3",
+    "content": "mettre de l'eau dans une casserole, faire bouillir, mettre les patates, attendre 10 minutes, egoutter, manger",
+    "createdAt": "2021-04-01"
+}
+###
+DELETE {{base_url}}/rest/blog/7
+Authorization: Bearer {{token}}}
+
+###
+GET {{base_url}}/rest/account
+Authorization: Bearer {{token}}}
+###
+GET {{base_url}}/rest/account/1
+Authorization: Bearer {{token}}}
+
+###
+DELETE {{base_url}}/rest/account/2
+Authorization: Bearer {{token}}}
+
+
+###
+GET {{base_url}}/rest/comment
+Authorization: Bearer {{token}}}
+
+###
+GET {{base_url}}/rest/comment/blog/1
+Authorization: Bearer {{token}}}
+###
+GET {{base_url}}/rest/comment/1
+Authorization: Bearer {{token}}}
+###
+POST {{base_url}}/rest/comment
+Authorization: Bearer {{token}}}
+Content-Type: application/json
+
+{
+    "blogId": "1",
+    "content": "Trop cool merci",
+    "createdBy": "6",
+    "createdAt": "2021-04-01"
+}
+###
+DELETE {{base_url}}/rest/comment/2
+Authorization: Bearer {{token}}}
+
+

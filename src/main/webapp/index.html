@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="./styles/index.css" rel="stylesheet" />
+  <link rel="icon" href="./images/piggy.jpeg" />
+
+  <title>Piggy blog</title>
+</head>
+
+<html>
+  <body>
+    <div class="flex flex-col w-full h-screen">
+      <div class="h-20 w-full header flex-none">
+        <div class="flex flex-row h-full items-center justify-between px-4">
+          <div class="flex flex-row gap-2 items-center">
+            <img
+              src="/images/piggy.jpeg"
+              class="w-10 h-10 rounded-full hover:animate-spin"
+              alt="logo piggy blog"
+            />
+            <a href="/" class="text-2xl">Piggy blog</a>
+          </div>
+        </div>
+      </div>
+      <div class="main flex flex-col items-center justify-center grow gap-2">
+        <span class="text-center">
+          Bienvenue sur Piggy Blog<br />
+          Vous avez un compte ? Connectez-vous, sinon inscrivez vous !
+        </span>
+        <div class="flex flex-row gap-2">
+          <a
+            class="bg-primary hover:bg-opacity-90 shadow hover:shadow-gray-500 hover:shadow-md text-white font-bold py-2 px-4 rounded transition-all"
+            href="/login"
+          >
+            Me connecter
+          </a>
+          <a
+            class="bg-primary hover:bg-opacity-90 shadow hover:shadow-gray-500 hover:shadow-md text-white font-bold py-2 px-4 rounded transition-all"
+            href="/create-account"
+          >
+            M'inscrire
+          </a>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+<script>
+  if (sessionStorage.getItem("token") != null) {
+    window.location.href = window.location.href + "blog";
+  }
+
+  document
+    .getElementById("disconnect")
+    .addEventListener("click", function (event) {
+      sessionStorage.removeItem("token");
+      window.location.href = "/";
+    });
+</script>

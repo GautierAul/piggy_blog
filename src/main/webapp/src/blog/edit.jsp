@@ -1,0 +1,28 @@
+<%@ page pageEncoding="UTF-8" %> <%@include file="../../head.jsp" %> <%@include
+file="../../header.jsp" %>
+
+<div class="main flex flex-col items-center justify-center grow gap-2">
+  <form
+    name="editBlog"
+    method="post"
+    action="/blog"
+    class="flex flex-col gap-2 w-1/3"
+    id="editBlog"
+  >
+    <h1 class="text-2xl text-center">Créer un piggy</h1>
+    <div class="flex flex-col gap-2">
+      <label for="title">Titre:</label>
+      <input type="text" name="title" class="rounded-lg p-2 text-black" value="${blog.title}" />
+    </div>
+    <div class="flex flex-col gap-2">
+      <label for="content">Contenu :</label>
+      <textarea name="content" rows="11" class="rounded-lg p-2 text-black" placeholder="Ecrivez ce qui passe par votre tete">${blog.content}</textarea>
+    <input
+      type="submit"
+      value="Mettre à jour mon piggy ;)"
+      class="border border-white rounded-lg px-2 py-1"
+    />
+    <input type="hidden" id="id" name="id" value="${blog.id}" class="rounded-lg p-2 text-black" />
+    <input type="hidden" name="_method" value="PUT">
+  </form>
+</div>

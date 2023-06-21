@@ -1,0 +1,29 @@
+:root {
+  --primary: #007bff;
+  --secondary: #6c757d;
+  --surface: #1a1f2b;
+  --success: #28a745;
+  --error: #dc3545;
+  --warining: #ffc107;
+  --info: #17a2b8;
+  --header: #111827;
+}
+
+body {
+  background-color: #111827;
+  color: #f3f4f6;
+}
+
+.header {
+  background-color: var(--header);
+  color: #f3f4f6;
+}
+
+.main {
+  background-color: var(--surface);
+  height: calc(100vh - 80px);
+}
+
+.bg-primary {
+  background-color: var(--header);
+}
