@@ -1,15 +1,15 @@
-@base_url=http://localhost:8080
-@token=eyJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoidGVzdCIsInVzZXJJZCI6IjEiLCJzdWIiOiJ0ZXN0IiwiaWF0IjoxNjg3MzQzOTAyLCJleHAiOjE2ODczNDc1MDJ9.XjB3bg1qrpD3AMQrjBbBChgSY3VidE20Pv7pdhoIagk
+# @base_url=http://localhost:8080
+@token=eyJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoiaGFzaCIsInVzZXJJZCI6IjQiLCJzdWIiOiJoYXNoIiwiaWF0IjoxNjg3NTA4NDY4LCJleHAiOjE2ODc1MTIwNjh9.LSxAfyUG_eK_oIJMx43pCHOfL916dUZ2SdLAgy5dCIY
 
-# @base_url=https://piggy-blog-gautier.alwaysdata.net
+@base_url=https://piggy-blog-gautier.alwaysdata.net
 
 ###
 POST {{base_url}}/rest/account/login
 Content-Type: application/json
 
 {
-    "username": "test",
-    "password": "test"
+    "username": "hash",
+    "password": "hash"
 }
 
 ###
@@ -17,8 +17,8 @@ POST {{base_url}}/rest/account/create
 Content-Type: application/json
 
 {
-    "username": "test",
-    "password": "test"
+    "username": "aze",
+    "password": "aze"
 }
 ###
 GET {{base_url}}/rest/blog

@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.stream.Stream;
 
 import org.eclipse.jakarta.model.Account;
+import org.eclipse.jakarta.model.Token;
+import org.eclipse.jakarta.utils.PasswordHasher;
 import org.eclipse.jakarta.utils.PiggyUtils;
 
 import io.jsonwebtoken.Jwts;
@@ -41,6 +43,7 @@ public class AccountResource {
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
     @Path("login")
     public Response connectUser(Account account) {
 
@@ -53,8 +56,11 @@ public class AccountResource {
             Stream<Account> stream = userList.stream();
 
             Account accountFound = stream.filter(
-                    v -> v.getUsername().equals(account.getUsername()) &&
-                            v.getPassword().equals(account.getPassword()))
+                    v -> {
+
+                        return v.getUsername().equals(account.getUsername())
+                                && PasswordHasher.verifyPassword(account.getPassword(), v.getPassword());
+                    })
                     .findFirst().orElse(null);
 
             if (accountFound == null) {
@@ -65,7 +71,8 @@ public class AccountResource {
             PiggyUtils.verifyJWT(token);
             userTransaction.commit();
 
-            return Response.status(Response.Status.OK).entity(token).type(MediaType.TEXT_PLAIN).build();
+            Token tokenObj = new Token(token);
+            return Response.ok(tokenObj).build();
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -75,6 +82,7 @@ public class AccountResource {
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
     @Path("create")
     public Response createUser(Account account, @Context HttpSession session, @Context UriInfo uriInfo) {
         try {
@@ -84,6 +92,7 @@ public class AccountResource {
                     Account.class).getResultList();
 
             Stream<Account> stream = userList.stream();
+
             Account accountFound = stream.filter(
                     v -> v.getUsername().equals(account.getUsername()))
                     .findFirst().orElse(null);
@@ -91,6 +100,7 @@ public class AccountResource {
             if (accountFound != null) {
                 return Response.status(Response.Status.CONFLICT).build();
             }
+            account.setPassword(PasswordHasher.hashPassword(account.getPassword()));
 
             entityManager.persist(account);
             entityManager.flush();
@@ -98,7 +108,8 @@ public class AccountResource {
             PiggyUtils.verifyJWT(token);
             userTransaction.commit();
 
-            return Response.status(Response.Status.OK).entity(token).type(MediaType.TEXT_PLAIN).build();
+            Token tokenObj = new Token(token);
+            return Response.ok(tokenObj).build();
         } catch (Exception e) {
             e.printStackTrace();
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();

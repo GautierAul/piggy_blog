@@ -50,16 +50,15 @@ file="../../header.jsp" %>
       })
         .then((response) => {
           if (response.status === 200) {
-            alert("Vous êtes connecté !");
             return response.text();
           } else if (response.status === 401) {
-            alert("Mauvais identifiants");
             throw new Error("Mauvais identifiants");
           } else {
             throw new Error("Erreur inattendue : " + response.status);
           }
         })
         .then((token) => {
+          token = JSON.parse(token).token;
           sessionStorage.token = token;
 
           var base64Url = token.split(".")[1];

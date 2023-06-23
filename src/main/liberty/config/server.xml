@@ -22,6 +22,8 @@
     <variable name="env.PORT" defaultValue="8080" />
     <variable name="env.HOST" defaultValue="localhost" />
 
+    <variable name="env.DB" defaultValue="localhost" />
+
     <!-- This template enables security. To get the full use of all the capabilities, a keystore and
     user registry are required. -->
 
@@ -77,6 +79,6 @@
 
     <dataSource id="eventjpadatasource" jndiName="jdbc/eventjpadatasource">
         <jdbcDriver libraryRef="jdbcLib"/>
-        <properties serverName="mysql-piggy-blog-gautier.alwaysdata.net" portNumber="3306" databaseName="piggy-blog-gautier_db" password="mdp123*" user="317311"/>
+        <properties serverName="${env.DB}" portNumber="3306" databaseName="piggy-blog-gautier_db" password="mdp123*" user="317311"/>
     </dataSource>
 </server>
